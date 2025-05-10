@@ -23,7 +23,11 @@ all_symptoms = list(symptom_data.columns[:-1])
 #     confidence = float(np.max(predictions))
 
 #     return {"disease": predicted_disease[0], "confidence": confidence}
+def format_symptoms(symptoms: list) -> list:
+    return [symptom.replace(" ", "_") for symptom in symptoms]
+
 def get_disease(symptoms: list):
+    symptoms = format_symptoms(symptoms)
     # Convert symptom list into one-hot vector and predict multiple possible diseases
     encoded_input = [1 if symptom in symptoms else 0 for symptom in all_symptoms]
     encoded_input = np.array(encoded_input).reshape(1, -1)
